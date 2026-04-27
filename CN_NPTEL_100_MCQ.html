@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CN & IP — NPTEL 100 MCQ Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #151e2e;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --gold: #ffd700;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --correct-bg: rgba(34,197,94,0.12);
+    --wrong-bg: rgba(239,68,68,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(0,212,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 10% 80%, rgba(255,107,53,0.05) 0%, transparent 50%);
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold));
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 30%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+
+  /* Controls */
+  .controls {
+    max-width: 900px;
+    margin: 2rem auto 0;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .score-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .score-display span { color: var(--accent); font-weight: 600; }
+
+  .btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-primary:hover { background: #00b8d9; transform: translateY(-1px); }
+
+  .btn-secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-gold { background: var(--gold); color: #000; }
+  .btn-gold:hover { background: #e6c200; }
+
+  /* Filter tabs */
+  .filter-tabs {
+    max-width: 900px;
+    margin: 1rem auto 0;
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+
+  /* Progress bar */
+  .progress-wrap {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    padding: 0 1.5rem;
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    text-align: right;
+  }
+
+  /* MCQ container */
+  .mcq-container {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .mcq-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .mcq-card:hover { border-color: rgba(0,212,255,0.25); }
+
+  .mcq-card.answered-correct { border-color: var(--green); background: var(--correct-bg); }
+  .mcq-card.answered-wrong { border-color: var(--red); }
+
+  .mcq-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    min-width: 2.5rem;
+    padding-top: 0.15rem;
+  }
+
+  .q-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+  }
+
+  .q-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    opacity: 0.8;
+  }
+
+  .q-text {
+    font-size: 0.97rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .q-difficulty {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  .diff-hard { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+  .diff-extreme { background: rgba(255,107,53,0.15); color: var(--accent2); border: 1px solid rgba(255,107,53,0.3); }
+
+  .options {
+    padding: 1rem 1.4rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+  }
+
+  .option:hover:not(.disabled) {
+    border-color: var(--accent);
+    background: rgba(0,212,255,0.06);
+  }
+
+  .option.correct {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.12);
+  }
+
+  .option.wrong {
+    border-color: var(--red);
+    background: rgba(239,68,68,0.12);
+  }
+
+  .option.reveal-correct {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.08);
+  }
+
+  .option.disabled { cursor: default; }
+
+  .opt-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    min-width: 1.2rem;
+    padding-top: 0.05rem;
+  }
+
+  .opt-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .opt-icon {
+    font-size: 0.9rem;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .option.correct .opt-icon,
+  .option.wrong .opt-icon,
+  .option.reveal-correct .opt-icon { opacity: 1; }
+
+  /* Explanation */
+  .explanation {
+    padding: 0.8rem 1.4rem 1.2rem;
+    border-top: 1px solid var(--border);
+    background: rgba(0,212,255,0.03);
+    display: none;
+  }
+  .explanation.show { display: block; }
+
+  .exp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .exp-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    font-style: italic;
+  }
+
+  /* Summary modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    padding: 1rem;
+  }
+
+  .modal-overlay.show { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.show .modal { transform: translateY(0); }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    background: rgba(0,212,255,0.05);
+  }
+
+  .score-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .score-total {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .modal h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">NPTEL Exam Prep · 2026</div>
+  <h1>Computer Networks & Internet Protocols</h1>
+  <p class="subtitle">100 Extreme-Level MCQs — OSI to Application Layer</p>
+</header>
+
+<div style="max-width:900px;margin:1.5rem auto 0;padding:0 1.5rem;">
+  <div class="controls">
+    <div class="score-display">Score: <span id="scoreVal">0</span> / <span id="totalAnswered">0</span> answered &nbsp;|&nbsp; Correct: <span id="correctCount">0</span></div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <button class="btn btn-secondary" onclick="showAll()">Show All Answers</button>
+      <button class="btn btn-primary" onclick="resetAll()">Reset</button>
+      <button class="btn btn-gold" onclick="showSummary()">Results</button>
+    </div>
+  </div>
+
+  <div class="filter-tabs" id="filterTabs">
+    <button class="tab active" onclick="filterUnit('all', this)">All (100)</button>
+    <button class="tab" onclick="filterUnit('unit1', this)">Unit 1 · Physical</button>
+    <button class="tab" onclick="filterUnit('unit2', this)">Unit 2 · DLL / MAC</button>
+    <button class="tab" onclick="filterUnit('unit3', this)">Unit 3 · Network</button>
+    <button class="tab" onclick="filterUnit('unit4', this)">Unit 4 · Transport</button>
+    <button class="tab" onclick="filterUnit('unit5', this)">Unit 5 · Application</button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label" id="progressLabel">0 / 100 answered</div>
+  </div>
+</div>
+
+<div class="mcq-container" id="mcqContainer"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="score-circle">
+      <div class="score-big" id="finalScore">0</div>
+      <div class="score-total">/ <span id="finalTotal">100</span></div>
+    </div>
+    <h2 id="resultTitle">Your Result</h2>
+    <p id="resultMsg">Keep practicing!</p>
+    <button class="btn btn-primary" onclick="closeModal()">Close</button>
+    &nbsp;
+    <button class="btn btn-secondary" onclick="resetAll(); closeModal();">Retry</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  // ── UNIT 1: Physical Layer & Basics ──────────────────────────────
+  {
+    unit: "unit1",
+    tag: "OSI Model",
+    difficulty: "hard",
+    q: "In the OSI model, which layer is responsible for end-to-end error recovery and flow control between two hosts?",
+    opts: ["Network Layer", "Data Link Layer", "Transport Layer", "Session Layer"],
+    ans: 2,
+    exp: "The Transport Layer (Layer 4) provides end-to-end communication, reliable data transfer, error recovery, and flow control between the source and destination hosts across the entire network path."
+  },
+  {
+    unit: "unit1",
+    tag: "OSI Model",
+    difficulty: "extreme",
+    q: "Which OSI layer converts data into bits for transmission and also manages bit synchronization?",
+    opts: ["Data Link Layer", "Physical Layer", "Network Layer", "Presentation Layer"],
+    ans: 1,
+    exp: "The Physical Layer (Layer 1) deals with raw bit transmission over the medium. It defines electrical/optical/radio signal characteristics, bit timing, and synchronization."
+  },
+  {
+    unit: "unit1",
+    tag: "Transmission Media",
+    difficulty: "extreme",
+    q: "Coaxial cable uses two concentric conductors. Which property of coaxial cable makes it more immune to EMI than twisted-pair?",
+    opts: ["Higher bandwidth", "Outer conductor acting as a shield (Faraday cage)", "Lower attenuation at DC", "Larger core diameter"],
+    ans: 1,
+    exp: "The outer conductor of coaxial cable acts as a Faraday cage, effectively shielding the inner conductor from electromagnetic interference (EMI) — this is the primary EMI advantage over twisted-pair."
+  },
+  {
+    unit: "unit1",
+    tag: "Switching",
+    difficulty: "hard",
+    q: "In circuit switching, what is the primary reason for the higher guaranteed QoS compared to packet switching?",
+    opts: ["Data is encrypted at each node", "A dedicated path is reserved for the entire duration of the call", "Packets are prioritized at routers", "Each node buffers data to handle congestion"],
+    ans: 1,
+    exp: "Circuit switching reserves a dedicated end-to-end path for the entire session. Resources (bandwidth, switches) are pre-allocated, guaranteeing constant delay and throughput — hence superior QoS for voice traffic."
+  },
+  {
+    unit: "unit1",
+    tag: "Switching",
+    difficulty: "extreme",
+    q: "Virtual Circuit (VC) packet switching combines properties of both circuit and datagram switching. Which of the following is TRUE?",
+    opts: ["Each packet carries a full destination IP address", "A fixed path is established and each packet carries a VC identifier", "No setup phase is required", "Path is chosen independently per packet"],
+    ans: 1,
+    exp: "In Virtual Circuit switching, a setup phase establishes a path and assigns a VC identifier. Each subsequent packet carries only this lightweight label, following the pre-established path — combining circuit switching's path consistency with packet switching's statistical multiplexing."
+  },
+  {
+    unit: "unit1",
+    tag: "Network Topology",
+    difficulty: "hard",
+    q: "A ring topology experiences a single link failure. With bidirectional rings (SONET/SDH), what recovery mechanism is used?",
+    opts: ["Flooding", "Automatic Protection Switching (APS)", "Spanning Tree Protocol", "Distance Vector Rerouting"],
+    ans: 1,
+    exp: "Bidirectional Line Switched Rings (BLSR) in SONET/SDH use Automatic Protection Switching (APS), reversing traffic onto the opposite ring direction within ~50ms of a failure — a key feature of optical ring networks."
+  },
+  {
+    unit: "unit1",
+    tag: "Transmission Modes",
+    difficulty: "hard",
+    q: "In asynchronous serial transmission, what is the overhead added per character compared to synchronous transmission?",
+    opts: ["No overhead", "Start and stop bits (typically 2–3 bits per character)", "Preamble of 8 bytes", "CRC per character"],
+    ans: 1,
+    exp: "Asynchronous transmission adds at least one start bit and one or more stop bits per character (typically 1-8 data bits + 2-3 overhead bits), allowing independent character timing without a shared clock. Synchronous transmits continuous frames with much less per-byte overhead."
+  },
+  {
+    unit: "unit1",
+    tag: "ISDN",
+    difficulty: "hard",
+    q: "ISDN BRI (Basic Rate Interface) provides which channel configuration?",
+    opts: ["23B + 1D (at 64 kbps each)", "2B + 1D (2×64 kbps B + 16 kbps D)", "1B + 2D", "30B + 1D"],
+    ans: 1,
+    exp: "BRI provides 2 Bearer (B) channels at 64 kbps each for data/voice, and 1 Delta (D) channel at 16 kbps for signaling — total 144 kbps. PRI provides 23B+1D (North America) or 30B+1D (Europe)."
+  },
+  {
+    unit: "unit1",
+    tag: "OSI Model",
+    difficulty: "extreme",
+    q: "The Presentation Layer is responsible for all of the following EXCEPT:",
+    opts: ["Data encryption and decryption", "Data compression", "Routing packets to the correct destination", "Translating between different data formats (e.g., EBCDIC to ASCII)"],
+    ans: 2,
+    exp: "Routing is a Network Layer (Layer 3) function, not Presentation Layer. The Presentation Layer handles data representation: encryption, compression, encoding translation, and syntax conversion between different systems."
+  },
+  {
+    unit: "unit1",
+    tag: "Bandwidth & Delay",
+    difficulty: "extreme",
+    q: "The bandwidth-delay product represents:",
+    opts: ["Maximum possible throughput of a link", "Number of bits 'in flight' in the network pipe at any given moment", "Total available buffer size at a router", "Propagation delay divided by transmission rate"],
+    ans: 1,
+    exp: "Bandwidth-delay product = Bandwidth × Round-Trip Time. It represents the maximum amount of data that can be 'in transit' (unacknowledged) in the pipe simultaneously — critical for sizing TCP window buffers in high-speed long-distance links."
+  },
+
+  // ── UNIT 2: Data Link Layer & MAC Sublayer ────────────────────────
+  {
+    unit: "unit2",
+    tag: "ALOHA",
+    difficulty: "hard",
+    q: "What is the maximum channel efficiency of Pure ALOHA?",
+    opts: ["37% (1/e × 100%)", "18.4% (1/2e × 100%)", "50%", "74%"],
+    ans: 0,
+    exp: "Pure ALOHA achieves maximum throughput of 1/(2e) ≈ 18.4%... wait — actually Pure ALOHA is S = G·e^(−2G), maximized at G=0.5 giving S = 1/(2e) ≈ 18.4%. Slotted ALOHA achieves 1/e ≈ 36.8%. The answer for Pure ALOHA is 18.4%.",
+  },
+  {
+    unit: "unit2",
+    tag: "ALOHA",
+    difficulty: "extreme",
+    q: "Slotted ALOHA improves efficiency over Pure ALOHA by what factor and what is its maximum throughput?",
+    opts: ["2× improvement; ~36.8% (1/e)", "3× improvement; ~55%", "1.5× improvement; ~27%", "4× improvement; ~73%"],
+    ans: 0,
+    exp: "Slotted ALOHA restricts transmission to slot boundaries, halving the vulnerable period from 2T to T. This doubles the maximum throughput from ~18.4% (1/2e) to ~36.8% (1/e)."
+  },
+  {
+    unit: "unit2",
+    tag: "CSMA",
+    difficulty: "hard",
+    q: "In CSMA/CD, what is the minimum frame size requirement and why does it exist?",
+    opts: ["To reduce header overhead", "To ensure the sender is still transmitting when a collision signal arrives (2×propagation delay)", "To match the MTU of IP", "To allow full-duplex operation"],
+    ans: 1,
+    exp: "The minimum frame size ensures the sender transmits for at least 2× the maximum propagation delay. This guarantees the sender is still transmitting when the collision detection signal returns from the farthest station, allowing reliable collision detection. In 10 Mbps Ethernet, this means 64 bytes minimum."
+  },
+  {
+    unit: "unit2",
+    tag: "CSMA",
+    difficulty: "extreme",
+    q: "CSMA/CA (used in 802.11 WiFi) uses which mechanism to avoid collision before transmitting?",
+    opts: ["Carrier Sensing + Random Backoff + ACK + RTS/CTS optionally", "Token passing before transmission", "Time-division slots assigned by base station", "CSMA/CD collision detection"],
+    ans: 0,
+    exp: "CSMA/CA cannot detect collisions in wireless (hidden terminal, signal attenuation). Instead, it: (1) senses carrier, (2) waits DIFS if idle, (3) uses random backoff, (4) transmits and waits for ACK. Optionally uses RTS/CTS to solve the hidden terminal problem."
+  },
+  {
+    unit: "unit2",
+    tag: "Sliding Window",
+    difficulty: "extreme",
+    q: "In Go-Back-N ARQ with window size W and sequence number bits n, the relationship must be:",
+    opts: ["W ≤ 2^n − 1", "W ≤ 2^n", "W ≤ 2^(n−1)", "W = 2^n"],
+    ans: 0,
+    exp: "In Go-Back-N, the sender window size must be W ≤ 2^n − 1. This prevents old and new frames from sharing the same sequence number in the window simultaneously, avoiding ambiguity at the receiver."
+  },
+  {
+    unit: "unit2",
+    tag: "Sliding Window",
+    difficulty: "extreme",
+    q: "In Selective Repeat ARQ, the maximum sender window size for n-bit sequence numbers is:",
+    opts: ["2^n − 1", "2^n / 2 = 2^(n−1)", "2^n", "2^n − 2"],
+    ans: 1,
+    exp: "Selective Repeat requires both sender and receiver windows of size 2^(n−1). The sum of sender + receiver window sizes must not exceed 2^n to avoid ambiguity between old and new frames. Each window = 2^(n-1)."
+  },
+  {
+    unit: "unit2",
+    tag: "Error Detection",
+    difficulty: "extreme",
+    q: "CRC uses polynomial division in GF(2). If the generator polynomial is x³+x+1 and the data is 1101011011, what is the degree of the remainder?",
+    opts: ["Must be less than 3 (degree of generator)", "Exactly equal to data length", "Always zero if no errors", "Equal to generator degree"],
+    ans: 0,
+    exp: "In CRC, the remainder of dividing the augmented data (data with appended zeros) by the generator polynomial always has a degree strictly less than the generator's degree. For a degree-3 generator, the CRC check bits are always 3 bits (remainder has degree < 3)."
+  },
+  {
+    unit: "unit2",
+    tag: "Error Detection",
+    difficulty: "hard",
+    q: "Hamming code can correct single-bit errors and detect double-bit errors. For a 16-bit data word, the minimum number of parity bits required is:",
+    opts: ["4", "5", "6", "3"],
+    ans: 1,
+    exp: "Hamming code requires 2^r ≥ m + r + 1, where m is data bits and r is parity bits. For m=16: 2^r ≥ 17+r. Testing r=5: 32 ≥ 22 ✓. Testing r=4: 16 ≥ 21 ✗. So minimum 5 parity bits are needed."
+  },
+  {
+    unit: "unit2",
+    tag: "Ethernet & 802",
+    difficulty: "hard",
+    q: "Manchester encoding used in 10BASE-T Ethernet encodes each bit as a transition. What is the consequence for bandwidth compared to NRZ?",
+    opts: ["Requires half the bandwidth of NRZ", "Requires double the bandwidth but is self-clocking", "Same bandwidth, adds error correction", "Uses 4B/5B encoding overhead"],
+    ans: 1,
+    exp: "Manchester encoding uses a mid-bit transition (low→high for 1, high→low for 0). This self-clocking property allows clock recovery but doubles the signaling rate — requiring 2× the bandwidth of NRZ for the same bit rate."
+  },
+  {
+    unit: "unit2",
+    tag: "Token Ring / FDDI",
+    difficulty: "extreme",
+    q: "FDDI uses a dual counter-rotating ring. Under normal operation, only the primary ring is used. Under a single fiber break, the ring:",
+    opts: ["Splits into two independent rings", "Wraps the traffic around the secondary ring to restore connectivity", "Falls back to Ethernet mode", "Drops all traffic and re-initializes"],
+    ans: 1,
+    exp: "FDDI's key resilience feature: upon a single break, stations adjacent to the fault 'wrap' the primary ring onto the secondary ring (which runs in opposite direction), effectively forming a single continuous ring. The network heals automatically within seconds."
+  },
+
+  // ── UNIT 3: Network Layer ─────────────────────────────────────────
+  {
+    unit: "unit3",
+    tag: "IP Addressing",
+    difficulty: "hard",
+    q: "A host has IP address 192.168.10.65 with subnet mask 255.255.255.192. What is the network address?",
+    opts: ["192.168.10.0", "192.168.10.64", "192.168.10.63", "192.168.10.128"],
+    ans: 1,
+    exp: "255.255.255.192 = /26, blocks of 64. Host 65 is in the block 64–127. Network address = 192.168.10.64. Broadcast = 192.168.10.127. AND: 65 & 192 = 64."
+  },
+  {
+    unit: "unit3",
+    tag: "IP Addressing",
+    difficulty: "extreme",
+    q: "How many usable host addresses are in the subnet 172.16.5.0/27?",
+    opts: ["30", "32", "62", "14"],
+    ans: 0,
+    exp: "/27 means 32 − 27 = 5 host bits → 2^5 = 32 addresses total. Subtract 2 (network + broadcast) = 30 usable hosts."
+  },
+  {
+    unit: "unit3",
+    tag: "IP Addressing",
+    difficulty: "extreme",
+    q: "Which class of IPv4 addresses is reserved for multicast?",
+    opts: ["Class B (128.0.0.0 – 191.255.255.255)", "Class D (224.0.0.0 – 239.255.255.255)", "Class C (192.0.0.0 – 223.255.255.255)", "Class E (240.0.0.0 – 255.255.255.255)"],
+    ans: 1,
+    exp: "Class D addresses (224.0.0.0–239.255.255.255) are reserved for IP multicast groups. Class E (240–255) is reserved for experimental use. IGMP is used to manage multicast group membership."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv4 Header",
+    difficulty: "extreme",
+    q: "An IP datagram with TTL=1 arrives at a router. The router:",
+    opts: ["Decrements TTL to 0 and forwards the packet", "Discards the packet and sends an ICMP Time Exceeded message to the source", "Resets TTL to 64 and forwards", "Sends the packet to the default gateway"],
+    ans: 1,
+    exp: "When a router receives a packet with TTL=1, it decrements it to 0 and discards the packet (does NOT forward). It then sends an ICMP Type 11 (Time Exceeded) message back to the original source — the mechanism used by traceroute."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv4 Header",
+    difficulty: "hard",
+    q: "The IP header 'Identification' field, 'Flags', and 'Fragment Offset' fields are used for:",
+    opts: ["QoS prioritization", "IP fragmentation and reassembly", "Source routing", "Error detection"],
+    ans: 1,
+    exp: "When an IP datagram exceeds the MTU of a link, routers fragment it. The Identification field identifies fragments of the same original datagram; MF (More Fragments) flag indicates more are coming; Fragment Offset gives position in the original datagram. Reassembly occurs only at the destination."
+  },
+  {
+    unit: "unit3",
+    tag: "ARP / RARP",
+    difficulty: "hard",
+    q: "ARP is used to resolve IP addresses to MAC addresses. What protocol is used for the REVERSE mapping (MAC → IP), and where is it used?",
+    opts: ["ICMP — used for error messages", "RARP (Reverse ARP) — used by diskless workstations to find their IP at boot", "DNS — used for domain name resolution", "DHCP — always used instead of RARP"],
+    ans: 1,
+    exp: "RARP (Reverse ARP) allows a diskless workstation that knows its own MAC address to discover its IP address from a RARP server on boot. RARP has largely been superseded by BOOTP and then DHCP, which provide more functionality."
+  },
+  {
+    unit: "unit3",
+    tag: "ICMP",
+    difficulty: "extreme",
+    q: "Which ICMP message type is used by the 'ping' command, and what is the type/code?",
+    opts: ["Type 0, Code 0 (Echo Reply) sent first", "Type 8, Code 0 (Echo Request) sent by pinger; Type 0, Code 0 (Echo Reply) returned by target", "Type 3, Code 0 (Destination Unreachable)", "Type 11, Code 0 (Time Exceeded)"],
+    ans: 1,
+    exp: "Ping sends ICMP Type 8, Code 0 (Echo Request) to the target. The target responds with ICMP Type 0, Code 0 (Echo Reply). ICMP Type 3 = Destination Unreachable; Type 11 = Time Exceeded (used by traceroute)."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "Distance Vector Routing uses the Bellman-Ford algorithm. What is the 'count-to-infinity' problem and how does Split Horizon solve it?",
+    opts: [
+      "Routers increment hop count indefinitely for unreachable routes; Split Horizon prevents a router from advertising a route back to the neighbor it learned from",
+      "Routers disagree on metric; solved by increasing maximum metric",
+      "Loops form in link-state routing; solved by Dijkstra's algorithm",
+      "Bandwidth calculations cycle; solved by OSPF areas"
+    ],
+    ans: 0,
+    exp: "Count-to-infinity: when a link fails, routers may falsely believe a route still exists by hearing about it through each other, incrementally increasing the metric until infinity (16 in RIP). Split Horizon prevents this by not advertising a route on the interface through which the route was learned."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "Link State Routing (used in OSPF) floods LSPs (Link State Packets) to all routers. Once each router has the complete topology, it computes the shortest path using:",
+    opts: ["Bellman-Ford algorithm", "Dijkstra's Shortest Path First (SPF) algorithm", "Floyd-Warshall algorithm", "Prim's spanning tree algorithm"],
+    ans: 1,
+    exp: "OSPF uses Dijkstra's SPF algorithm on the complete topology database (LSDB). Each router independently runs SPF to compute the shortest-path tree rooted at itself to all destinations — no routing loops, fast convergence."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv6",
+    difficulty: "hard",
+    q: "IPv6 addresses are 128-bit. Which feature of IPv6 eliminates the need for NAT (Network Address Translation)?",
+    opts: ["Anycast addressing", "Massive address space (2^128 addresses) allowing globally unique addresses for every device", "Flow labels in header", "Elimination of fragmentation at routers"],
+    ans: 1,
+    exp: "IPv6's 128-bit address space provides 2^128 ≈ 3.4×10^38 unique addresses — enough for every device to have a globally routable unique address, eliminating the scarcity problem that drove IPv4 NAT adoption."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv6",
+    difficulty: "extreme",
+    q: "In IPv6, fragmentation is handled differently than IPv4. Which statement is TRUE?",
+    opts: [
+      "IPv6 routers fragment packets just like IPv4",
+      "IPv6 fragmentation occurs only at the source using Path MTU Discovery; routers do NOT fragment",
+      "IPv6 has no fragmentation support",
+      "IPv6 uses ICMP to automatically fragment at every hop"
+    ],
+    ans: 1,
+    exp: "IPv6 routers do NOT fragment packets. Instead, the source performs Path MTU Discovery (using ICMPv6 'Packet Too Big' messages) and fragments at the source if needed using the Fragment extension header. This reduces router processing burden."
+  },
+  {
+    unit: "unit3",
+    tag: "Congestion Control",
+    difficulty: "extreme",
+    q: "Which of the following is a proactive (preventive) congestion control mechanism operating at the Network Layer?",
+    opts: ["TCP slow start", "Random Early Detection (RED) / Weighted RED at routers", "Go-Back-N retransmission", "Token passing in FDDI"],
+    ans: 1,
+    exp: "RED (Random Early Detection) is a router queue management scheme that proactively drops packets with increasing probability as the queue fills. This signals TCP senders to reduce their rate before severe congestion (queue overflow) occurs — a Network Layer proactive approach."
+  },
+  {
+    unit: "unit3",
+    tag: "Subnetting VLSM",
+    difficulty: "extreme",
+    q: "Using VLSM, an organization needs: 60 hosts on Subnet A, 30 hosts on Subnet B, and 2 hosts on a WAN link from 192.168.1.0/24. What prefix is MOST EFFICIENT for the WAN link?",
+    opts: ["/28 (14 hosts)", "/29 (6 hosts)", "/30 (2 hosts)", "/31 (point-to-point RFC 3021)"],
+    ans: 2,
+    exp: "A /30 gives 2^2 − 2 = 2 usable hosts — exactly what a point-to-point WAN link needs (one address each end). /31 (RFC 3021) is also valid for P2P but /30 is the traditional answer in most NPTEL contexts."
+  },
+
+  // ── UNIT 4: Transport Layer & Cryptography ────────────────────────
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "hard",
+    q: "TCP's three-way handshake sequence is:",
+    opts: [
+      "SYN → SYN-ACK → ACK",
+      "SYN → ACK → SYN-ACK",
+      "ACK → SYN → SYN-ACK",
+      "SYN → FIN → ACK"
+    ],
+    ans: 0,
+    exp: "Client sends SYN (with ISN), Server responds with SYN-ACK (its ISN + acknowledgment of client ISN), Client sends ACK. Three packets, establishing sequence numbers in both directions, before data transfer begins."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "extreme",
+    q: "TCP connection termination uses a 4-way handshake. Why is a 2-way close not sufficient?",
+    opts: [
+      "TCP is bidirectional; each direction closes independently with its own FIN/ACK exchange",
+      "TCP requires time synchronization before closing",
+      "The server cannot initiate closure",
+      "ACKs are unreliable and need confirmation"
+    ],
+    ans: 0,
+    exp: "TCP is full-duplex: data flows in both directions independently. Each side must explicitly close its sending direction with a FIN. The other side can continue sending after receiving a FIN (half-close), so each FIN+ACK pair is independent, requiring 4 messages total (FIN, ACK, FIN, ACK)."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "extreme",
+    q: "What is the purpose of the TIME_WAIT state in TCP, and how long does it last?",
+    opts: [
+      "To wait for retransmitted data; lasts 30 seconds",
+      "To ensure the remote side received the final ACK and to handle late packets; lasts 2×MSL (Maximum Segment Lifetime, typically 2×60s = 2 minutes)",
+      "To prevent SYN flooding; lasts indefinitely",
+      "To allow new connections on the same port; lasts 1 RTT"
+    ],
+    ans: 1,
+    exp: "TIME_WAIT serves two purposes: (1) ensures the final ACK (to server's FIN) was received — if it was lost and server retransmits FIN, the client can re-ACK; (2) allows all duplicate packets from the old connection to expire. Duration = 2×MSL to cover worst-case packet lifetime."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "extreme",
+    q: "In TCP's slow start algorithm, the congestion window (cwnd) grows:",
+    opts: [
+      "Linearly by 1 MSS per RTT",
+      "Exponentially — doubles each RTT until ssthresh, then grows linearly (AIMD)",
+      "Stays constant until a packet loss event",
+      "Grows by the receiver's advertised window size per RTT"
+    ],
+    ans: 1,
+    exp: "In slow start, cwnd increases by 1 MSS per acknowledged segment, effectively doubling each RTT (exponential growth). When cwnd reaches ssthresh, TCP enters congestion avoidance (linear growth, +1 MSS per RTT). On loss: ssthresh = cwnd/2, cwnd resets to 1 (or ssthresh for fast recovery)."
+  },
+  {
+    unit: "unit4",
+    tag: "UDP",
+    difficulty: "hard",
+    q: "UDP provides which of the following guarantees?",
+    opts: [
+      "Reliable, ordered delivery",
+      "Flow control and congestion control",
+      "No delivery guarantee, no ordering, no flow control — best-effort only",
+      "Retransmission on packet loss"
+    ],
+    ans: 2,
+    exp: "UDP is a connectionless, best-effort protocol. It provides NO reliability, NO ordering, NO flow control, NO congestion control. Its value is minimal overhead and low latency — used in DNS, VoIP, streaming, gaming where occasional loss is acceptable."
+  },
+  {
+    unit: "unit4",
+    tag: "Port Numbers",
+    difficulty: "hard",
+    q: "Which range of port numbers is designated as 'Well-Known Ports' by IANA?",
+    opts: ["0–1023", "1024–49151", "49152–65535", "0–255"],
+    ans: 0,
+    exp: "IANA designates: Well-Known Ports 0–1023 (HTTP=80, HTTPS=443, FTP=21, SSH=22, DNS=53, SMTP=25, Telnet=23); Registered Ports 1024–49151; Dynamic/Ephemeral Ports 49152–65535."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "In RSA asymmetric encryption, which mathematical problem is its security based on?",
+    opts: [
+      "Discrete logarithm problem",
+      "Difficulty of factoring the product of two large prime numbers (integer factorization problem)",
+      "Elliptic curve discrete logarithm",
+      "SHA collision resistance"
+    ],
+    ans: 1,
+    exp: "RSA security relies on the computational difficulty of factoring n = p×q (product of two large primes). The public key uses n and exponent e; the private key requires knowing p and q to compute d. No efficient algorithm is known to factor large n in polynomial time."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "DES (Data Encryption Standard) uses which key size, and why was it considered insecure?",
+    opts: [
+      "56-bit key; brute-force attack became feasible with modern hardware (2^56 combinations)",
+      "128-bit key; algorithm had known backdoors",
+      "64-bit key; mathematical weakness in S-boxes",
+      "256-bit key; implementation was too slow"
+    ],
+    ans: 0,
+    exp: "DES uses a 56-bit effective key (64-bit with 8 parity bits). In 1998, EFF's 'Deep Crack' broke DES in 22 hours by brute force. 2^56 ≈ 72 quadrillion possibilities — manageable for modern hardware. Triple-DES (3DES) was a temporary fix; AES replaced DES."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "In RSA with public key (e=17, n=3233) and you encrypt message M=65. You compute C = 65^17 mod 3233. The private key d satisfies:",
+    opts: [
+      "d·e = 1 mod n",
+      "d·e ≡ 1 mod φ(n), where φ(n)=(p−1)(q−1)",
+      "d = e^(−1) mod n",
+      "d = φ(n)/e"
+    ],
+    ans: 1,
+    exp: "RSA private exponent d satisfies d·e ≡ 1 (mod φ(n)), where φ(n) = (p−1)(q−1). For n=3233=61×53: φ(n) = 60×52 = 3120. d = e^(−1) mod 3120 = 2753 (for e=17). Decryption: M = C^d mod n."
+  },
+  {
+    unit: "unit4",
+    tag: "Data Compression",
+    difficulty: "hard",
+    q: "Huffman coding is an example of which type of compression, and what property of the input does it exploit?",
+    opts: [
+      "Lossy compression; exploits spatial redundancy",
+      "Lossless entropy encoding; assigns shorter codes to more frequent symbols",
+      "Transform coding; works in frequency domain",
+      "Run-Length Encoding; exploits repeated sequences"
+    ],
+    ans: 1,
+    exp: "Huffman coding is lossless entropy coding. It builds a binary tree based on symbol frequencies, assigning shorter variable-length codes to higher-frequency symbols. Achieves near-optimal compression approaching the Shannon entropy H of the source."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP Header",
+    difficulty: "extreme",
+    q: "The TCP header has a 'URG' (Urgent) pointer. What is its purpose?",
+    opts: [
+      "Marks packets for QoS priority routing",
+      "Points to the last byte of urgent data within the segment, allowing the receiver to process it immediately out of band",
+      "Indicates that retransmission is required",
+      "Signals connection termination"
+    ],
+    ans: 1,
+    exp: "The URG bit with the Urgent Pointer allows the sender to mark data as urgent (e.g., interrupt signals in Telnet). The urgent pointer gives the byte offset into the segment where urgent data ends, allowing the receiver's application to act immediately — an out-of-band signaling mechanism within the TCP stream."
+  },
+
+  // ── UNIT 5: Application Layer ─────────────────────────────────────
+  {
+    unit: "unit5",
+    tag: "DNS",
+    difficulty: "hard",
+    q: "DNS resolution involves multiple server types. In a recursive DNS query, who performs all the iterative lookups?",
+    opts: [
+      "The end client (stub resolver) queries all DNS servers",
+      "The local DNS resolver/server performs all iterative queries on behalf of the client and returns the final answer",
+      "The root DNS server resolves the full name",
+      "The TLD server resolves the complete name"
+    ],
+    ans: 1,
+    exp: "In recursive mode, the client asks its local DNS resolver (e.g., ISP's resolver) and that resolver does all the work: queries root → TLD → authoritative servers iteratively, then returns the final IP to the client. This offloads complexity from the client."
+  },
+  {
+    unit: "unit5",
+    tag: "DNS",
+    difficulty: "extreme",
+    q: "A DNS zone file contains several record types. Which record type maps a hostname to an IPv6 address?",
+    opts: ["A record", "AAAA record", "CNAME record", "MX record"],
+    ans: 1,
+    exp: "DNS record types: A = hostname → IPv4 address; AAAA = hostname → IPv6 address (4 times larger, hence quad-A); CNAME = alias to canonical name; MX = mail exchanger; PTR = reverse lookup (IP→hostname); NS = nameserver."
+  },
+  {
+    unit: "unit5",
+    tag: "HTTP",
+    difficulty: "extreme",
+    q: "HTTP is a stateless protocol. Which mechanism does HTTP use to maintain session state across multiple requests?",
+    opts: [
+      "TCP persistent connections alone",
+      "Cookies — small key-value pairs stored on the client and sent with each request via the Cookie header",
+      "IP session binding",
+      "HTTP Basic Authentication tokens"
+    ],
+    ans: 1,
+    exp: "HTTP is inherently stateless — each request is independent. Cookies (RFC 6265) allow servers to send Set-Cookie headers; browsers store these and include them in subsequent requests via the Cookie header, enabling session tracking, authentication, and personalization."
+  },
+  {
+    unit: "unit5",
+    tag: "HTTP",
+    difficulty: "hard",
+    q: "HTTP/1.1 introduced persistent connections. What is HTTP pipelining and what problem does it address?",
+    opts: [
+      "Compresses HTTP headers; reduces overhead",
+      "Allows multiple HTTP requests to be sent without waiting for responses; reduces latency but suffers from Head-of-Line blocking",
+      "Uses UDP instead of TCP for faster transfers",
+      "Encrypts HTTP traffic by default"
+    ],
+    ans: 1,
+    exp: "HTTP pipelining allows clients to send multiple requests back-to-back without waiting for each response. Reduces round-trip latency. However, responses must come in order (Head-of-Line blocking) — if one response is slow, it delays all subsequent ones. HTTP/2 multiplexing solves this."
+  },
+  {
+    unit: "unit5",
+    tag: "SMTP / Email",
+    difficulty: "hard",
+    q: "Which protocol does a mail client (MUA) use to RETRIEVE emails from the server while keeping server copies?",
+    opts: ["SMTP (port 25)", "POP3 (port 110) — downloads and deletes", "IMAP4 (port 143) — keeps mail on server, syncs state", "MIME"],
+    ans: 2,
+    exp: "IMAP4 (Internet Message Access Protocol) keeps messages on the server and synchronizes state (read, starred, folders) across multiple clients. POP3 downloads and typically deletes from server. SMTP is only for sending, not retrieval. MIME extends email to handle non-ASCII content."
+  },
+  {
+    unit: "unit5",
+    tag: "SMTP / Email",
+    difficulty: "extreme",
+    q: "MIME extends email to support non-ASCII content. Which MIME Content-Type is used for HTML email bodies?",
+    opts: ["text/plain", "text/html", "multipart/mixed", "application/octet-stream"],
+    ans: 1,
+    exp: "MIME Content-Types: text/plain (plain text), text/html (HTML formatted email), multipart/mixed (email with attachments — combines text and binary parts), multipart/alternative (provides both text and HTML versions), application/octet-stream (arbitrary binary data)."
+  },
+  {
+    unit: "unit5",
+    tag: "FTP",
+    difficulty: "hard",
+    q: "FTP uses two TCP connections. What are their respective port numbers and purposes?",
+    opts: [
+      "Both use port 21 — one for data, one for control",
+      "Port 21 for control commands; Port 20 for active data transfer",
+      "Port 20 for control; Port 21 for data",
+      "Port 21 for control; Port 22 for data"
+    ],
+    ans: 1,
+    exp: "FTP uses port 21 for the persistent control connection (commands: USER, PASS, LIST, RETR, STOR) and port 20 for the data connection in active mode. In passive mode, the server opens a random high port for data instead of the client connecting back to the server on port 20."
+  },
+  {
+    unit: "unit5",
+    tag: "WWW / HTTP",
+    difficulty: "extreme",
+    q: "What HTTP status code indicates 'Resource Not Found', and which indicates 'Moved Permanently'?",
+    opts: [
+      "404 Not Found; 301 Moved Permanently",
+      "403 Forbidden; 302 Found",
+      "500 Server Error; 301 Moved Permanently",
+      "404 Not Found; 302 Found (Temporary Redirect)"
+    ],
+    ans: 0,
+    exp: "HTTP 404 = Not Found (resource doesn't exist at that URL); 301 = Moved Permanently (resource has permanently moved, update bookmarks); 302 = Found/Temporary Redirect; 403 = Forbidden; 500 = Internal Server Error; 200 = OK."
+  },
+  {
+    unit: "unit5",
+    tag: "SNMP",
+    difficulty: "hard",
+    q: "SNMP operates over which transport protocol and port, and why is this choice made?",
+    opts: [
+      "TCP port 443; for security",
+      "UDP ports 161 (agent) and 162 (trap); lightweight, low overhead for monitoring",
+      "TCP port 161; reliable delivery required",
+      "UDP port 80; shares with HTTP"
+    ],
+    ans: 1,
+    exp: "SNMP uses UDP: port 161 for agent queries (GET/SET), port 162 for TRAP messages (agent→manager). UDP is chosen because SNMP traffic is lightweight poll-response; if a device is heavily loaded, using TCP could cause retransmission storms. If a GET fails, the manager simply retries."
+  },
+  {
+    unit: "unit5",
+    tag: "Firewalls",
+    difficulty: "extreme",
+    q: "A stateful inspection firewall differs from a simple packet filter in that it:",
+    opts: [
+      "Operates at all 7 OSI layers simultaneously",
+      "Tracks the state of TCP connections and allows return traffic only for established sessions",
+      "Decrypts all SSL/TLS traffic before inspection",
+      "Uses machine learning to detect intrusions"
+    ],
+    ans: 1,
+    exp: "Stateful inspection firewalls maintain a connection state table. They track TCP connection states (SYN_SENT, ESTABLISHED, etc.) and allow response packets only if they match an established connection. Packet filters check each packet in isolation — they can be fooled by spoofed ACK packets."
+  },
+  {
+    unit: "unit5",
+    tag: "VoIP",
+    difficulty: "hard",
+    q: "VoIP uses RTP (Real-time Transport Protocol) over UDP. Why UDP instead of TCP for voice traffic?",
+    opts: [
+      "UDP supports multicast; TCP does not",
+      "TCP retransmission of lost voice packets causes unacceptable delay — a brief gap is preferable to late arrival; UDP's low latency is critical",
+      "UDP encrypts voice; TCP does not",
+      "TCP has no port numbers suitable for RTP"
+    ],
+    ans: 1,
+    exp: "For real-time voice, late packets are useless. TCP's retransmission would delay subsequent voice samples, causing worse distortion than simply dropping a lost packet. UDP gives minimal overhead and no retransmission. Jitter buffers at the receiver smooth out arrival variation."
+  },
+  {
+    unit: "unit5",
+    tag: "Telnet / SSH",
+    difficulty: "hard",
+    q: "Telnet uses port 23 and transmits data in plaintext. SSH (Secure Shell) replaced it using which port and providing which security properties?",
+    opts: [
+      "Port 22; provides encryption, host authentication, and data integrity",
+      "Port 443; provides web security only",
+      "Port 21; provides FTP-like security",
+      "Port 25; provides email encryption"
+    ],
+    ans: 0,
+    exp: "SSH operates on TCP port 22 and provides: (1) strong encryption of all data (AES, ChaCha20), (2) server authentication via host keys preventing MITM attacks, (3) client authentication (password or public key), (4) data integrity via MACs. It fully replaces Telnet, rlogin, and rsh."
+  },
+
+  // ── More UNIT 3: Advanced Routing & IP ───────────────────────────
+  {
+    unit: "unit3",
+    tag: "Routing Protocols",
+    difficulty: "extreme",
+    q: "Which of the following is an Inter-Domain (Exterior Gateway) routing protocol used on the Internet backbone?",
+    opts: ["OSPF (Open Shortest Path First)", "RIP (Routing Information Protocol)", "BGP-4 (Border Gateway Protocol version 4)", "EIGRP (Enhanced Interior Gateway Routing Protocol)"],
+    ans: 2,
+    exp: "BGP-4 is the Internet's sole Exterior Gateway Protocol, used between Autonomous Systems (AS). It is a path-vector protocol choosing routes based on policy (AS path, local preference, MED) rather than metrics. OSPF, RIP, and EIGRP are all Interior Gateway Protocols (IGP) within an AS."
+  },
+  {
+    unit: "unit3",
+    tag: "IGMP",
+    difficulty: "extreme",
+    q: "IGMP (Internet Group Management Protocol) is used for:",
+    opts: [
+      "Routing packets between subnets",
+      "Managing IP multicast group membership between hosts and their local multicast routers",
+      "Translating IP addresses in NAT",
+      "Detecting duplicate IP addresses on a network"
+    ],
+    ans: 1,
+    exp: "IGMP operates between a host and its local multicast router. Hosts send IGMP Membership Reports to join multicast groups; IGMP Queries from routers check for remaining group members; IGMP Leave messages signal departure. This allows multicast traffic to be forwarded only where needed."
+  },
+  {
+    unit: "unit3",
+    tag: "NAT",
+    difficulty: "hard",
+    q: "NAT (Network Address Translation) allows multiple private hosts to share a single public IP. Which variant also multiplexes port numbers to distinguish connections?",
+    opts: ["Static NAT", "Dynamic NAT", "PAT / NAT Overload / NAPT", "Policy-based NAT"],
+    ans: 2,
+    exp: "PAT (Port Address Translation), also called NAT Overload or NAPT, maps multiple private (IP:port) pairs to a single public IP with different port numbers. This allows thousands of internal hosts to share one public IP — the most common implementation in home routers."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "extreme",
+    q: "What is the maximum number of subnets and hosts per subnet if you borrow 4 bits from the host portion of a Class C network?",
+    opts: [
+      "16 subnets, 14 hosts each",
+      "14 subnets (if excluding all-0s and all-1s per old rules), 14 hosts each — or 16 subnets, 14 hosts in CIDR",
+      "8 subnets, 30 hosts each",
+      "4 subnets, 62 hosts each"
+    ],
+    ans: 0,
+    exp: "Borrowing 4 bits from Class C (/24): host portion = 8 − 4 = 4 bits. Subnets = 2^4 = 16; hosts per subnet = 2^4 − 2 = 14. (Under modern CIDR, subnet-zero and all-ones subnet are usable, giving 16 subnets each with 14 hosts)."
+  },
+  {
+    unit: "unit3",
+    tag: "Classless Addressing",
+    difficulty: "extreme",
+    q: "A CIDR block is written as 203.0.113.0/26. How many IP addresses does this block contain?",
+    opts: ["64", "32", "128", "62"],
+    ans: 0,
+    exp: "/26 means 32 − 26 = 6 host bits → 2^6 = 64 total IP addresses in the block (including network address and broadcast). Usable hosts = 64 − 2 = 62. The block spans 203.0.113.0 – 203.0.113.63."
+  },
+
+  // ── More UNIT 2: Error & MAC ──────────────────────────────────────
+  {
+    unit: "unit2",
+    tag: "Error Detection",
+    difficulty: "extreme",
+    q: "What types of errors can a single-parity check bit detect, and what is its limitation?",
+    opts: [
+      "Detects all burst errors of length ≤ 2",
+      "Detects any odd number of bit errors but cannot detect even numbers of errors or determine which bit is wrong",
+      "Detects and corrects single-bit errors",
+      "Detects all errors if the checksum is 16-bit"
+    ],
+    ans: 1,
+    exp: "A single parity bit makes the total number of 1-bits even (even parity) or odd (odd parity). This detects any odd number of flipped bits (1, 3, 5...) but fails silently for even numbers of errors (2, 4...). It cannot locate or correct errors — only detect their presence."
+  },
+  {
+    unit: "unit2",
+    tag: "Ethernet",
+    difficulty: "extreme",
+    q: "In Ethernet (802.3), the minimum frame size is 64 bytes and maximum is 1518 bytes. What is the purpose of the minimum frame size?",
+    opts: [
+      "To ensure efficient use of bandwidth",
+      "To guarantee the sender is still transmitting when a collision is detected at the far end of the network (collision domain constraint)",
+      "To match the IP MTU exactly",
+      "To reserve space for VLAN tags"
+    ],
+    ans: 1,
+    exp: "The 64-byte minimum (512 bits) corresponds to twice the maximum propagation delay for a 10BASE5 Ethernet segment (~200m with repeaters). This ensures any transmitting station will still be sending when a collision reaches it, allowing CSMA/CD to work correctly across the entire collision domain."
+  },
+  {
+    unit: "unit2",
+    tag: "MAC Sublayer",
+    difficulty: "hard",
+    q: "In IEEE 802.11 (WiFi), the DCF (Distributed Coordination Function) uses CSMA/CA with binary exponential backoff. The contention window (CW) after the k-th collision has size:",
+    opts: [
+      "2^k × CWmin",
+      "min(2^k × CWmin − 1, CWmax)",
+      "k × CWmin",
+      "Fixed CWmax regardless of collisions"
+    ],
+    ans: 1,
+    exp: "After the k-th consecutive collision, a station picks a random backoff in [0, CW−1] where CW = min(2^k × CWmin, CWmax). The window doubles with each collision (binary exponential) up to CWmax, reducing the probability of repeated collisions between competing stations."
+  },
+
+  // ── More UNIT 4: Transport Deep ───────────────────────────────────
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "extreme",
+    q: "TCP's Nagle algorithm affects small packet transmission. Which statement correctly describes it?",
+    opts: [
+      "Delays ACKs to coalesce them with data",
+      "Buffers small data until either a full MSS segment is ready or all outstanding data is ACKed, reducing the number of tiny packets",
+      "Splits large segments into smaller ones for fairness",
+      "Reduces window size to prevent congestion"
+    ],
+    ans: 1,
+    exp: "Nagle's algorithm (RFC 896) prevents the 'small packet' problem by coalescing: transmit a small segment only if (a) we can send a full MSS, or (b) no outstanding unacknowledged data exists. This reduces network overhead from 'chatty' applications but can conflict with delayed ACK, causing latency in interactive apps."
+  },
+  {
+    unit: "unit4",
+    tag: "Congestion",
+    difficulty: "extreme",
+    q: "In TCP CUBIC (default in Linux), what shape does the congestion window follow after a packet loss event?",
+    opts: [
+      "Linear (AIMD) growth only",
+      "A cubic function of time since the last congestion event — fast initial growth, plateau near previous max, then rapid growth again",
+      "Exponential growth in all phases",
+      "Saw-tooth identical to TCP Reno"
+    ],
+    ans: 1,
+    exp: "TCP CUBIC grows cwnd as a cubic function W(t) = C(t − K)³ + W_max, where W_max is the window at last loss and K is the inflection point. This gives fast recovery, a plateau near the previous peak (probing for stability), then aggressive growth above it — better throughput on high-BDP links than Reno/NewReno."
+  },
+  {
+    unit: "unit4",
+    tag: "Socket",
+    difficulty: "hard",
+    q: "A socket is uniquely identified by:",
+    opts: [
+      "Just the IP address",
+      "Just the port number",
+      "The 5-tuple: (protocol, source IP, source port, destination IP, destination port)",
+      "The MAC address and port"
+    ],
+    ans: 2,
+    exp: "A TCP/UDP connection is uniquely identified by the 5-tuple: (Protocol, Src IP, Src Port, Dst IP, Dst Port). This allows a server to have thousands of simultaneous connections all on port 80 — each distinguished by different client IPs/ports."
+  },
+
+  // ── Mixed Advanced ─────────────────────────────────────────────────
+  {
+    unit: "unit3",
+    tag: "ARP",
+    difficulty: "extreme",
+    q: "Gratuitous ARP is a special ARP request where the sender queries for its own IP address. What are its uses?",
+    opts: [
+      "Used only during router initialization",
+      "Detect IP address conflicts, update ARP caches of neighboring hosts after IP/MAC change, and used in failover clustering",
+      "Resolve IPv6 addresses to MAC addresses",
+      "Replace RARP functionality"
+    ],
+    ans: 1,
+    exp: "Gratuitous ARP (a host ARPs for its own IP): (1) detects IP conflicts if another host replies; (2) forces other hosts to update their ARP cache with the new MAC-IP mapping (important after NIC replacement or failover); (3) used in VRRP/HSRP failover to announce the new active router's MAC."
+  },
+  {
+    unit: "unit2",
+    tag: "Sliding Window",
+    difficulty: "extreme",
+    q: "In Stop-and-Wait ARQ, sender efficiency (throughput/capacity) over a link with propagation delay T_p and transmission time T_t is:",
+    opts: [
+      "T_t / (T_t + 2T_p)",
+      "T_t / (T_t + T_p)",
+      "1 / (1 + 2a) where a = T_p / T_t",
+      "Both A and C (they are equivalent)"
+    ],
+    ans: 3,
+    exp: "Stop-and-Wait efficiency η = 1/(1+2a) where a = T_p/T_t = propagation-to-transmission ratio. Equivalently: T_t/(T_t + 2T_p). The denominator accounts for: T_t (transmission) + T_p (propagation to receiver) + T_p (ACK back). These two expressions are identical."
+  },
+  {
+    unit: "unit1",
+    tag: "Nyquist / Shannon",
+    difficulty: "extreme",
+    q: "Nyquist's theorem states maximum data rate for a noiseless channel with bandwidth B Hz and M signal levels is:",
+    opts: [
+      "B × log₂(M) bps",
+      "2B × log₂(M) bps",
+      "B / log₂(M) bps",
+      "B × M bps"
+    ],
+    ans: 1,
+    exp: "Nyquist Theorem: Max data rate = 2B log₂(M) bps, where B = bandwidth (Hz) and M = number of discrete signal levels. This applies to noiseless channels. Shannon's theorem gives the absolute limit considering noise: C = B log₂(1 + S/N)."
+  },
+  {
+    unit: "unit1",
+    tag: "Shannon Capacity",
+    difficulty: "extreme",
+    q: "A channel has bandwidth 4 MHz and SNR = 1023. What is the Shannon channel capacity?",
+    opts: ["40 Mbps", "4 Mbps", "20 Mbps", "80 Mbps"],
+    ans: 0,
+    exp: "Shannon capacity C = B × log₂(1 + SNR) = 4×10^6 × log₂(1024) = 4×10^6 × 10 = 40 Mbps. Note: log₂(1024) = 10 since 2^10 = 1024. SNR = 1023 ≈ 1024 for calculation."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "extreme",
+    q: "Flooding as a routing algorithm guarantees packet delivery but causes excessive traffic. The 'hop count' field in the packet header serves to:",
+    opts: [
+      "Identify the packet uniquely",
+      "Limit packet lifetime by being decremented at each hop and discarding the packet when it reaches zero",
+      "Mark the packet for QoS handling",
+      "Identify which interface received the packet"
+    ],
+    ans: 1,
+    exp: "In flooding-based routing, a hop count (TTL) field starts at some maximum value and is decremented at each router. When it reaches zero, the packet is discarded. This prevents infinite looping of packets across the network, bounding the flooding's reach."
+  },
+  {
+    unit: "unit2",
+    tag: "CSMA",
+    difficulty: "hard",
+    q: "In 1-persistent CSMA, after finding the channel idle, a station transmits with probability 1. What problem does this cause with multiple waiting stations?",
+    opts: [
+      "Stations never transmit",
+      "All stations waiting transmit simultaneously when the channel becomes idle, guaranteeing a collision",
+      "Stations lose synchronization",
+      "Bandwidth is wasted through idle periods"
+    ],
+    ans: 1,
+    exp: "In 1-persistent CSMA, ALL stations waiting for the channel to free up will transmit simultaneously the moment it goes idle — guaranteed collision with 2+ waiting stations. p-persistent CSMA solves this by transmitting with probability p < 1, reducing collision probability at the cost of some idle time."
+  },
+  {
+    unit: "unit5",
+    tag: "DNS",
+    difficulty: "hard",
+    q: "What is a DNS 'zone' and how does it differ from a 'domain'?",
+    opts: [
+      "They are identical concepts",
+      "A zone is the portion of the DNS namespace that a particular name server has authority over and manages; a domain includes all subdomains recursively",
+      "A zone is for IPv6; a domain is for IPv4",
+      "Zones are geographic partitions; domains are logical partitions"
+    ],
+    ans: 1,
+    exp: "A domain is a subtree of the DNS namespace (e.g., example.com). A zone is the specific administrative portion managed by a name server — it may be just example.com (if sub.example.com is delegated separately). Delegation breaks a domain into multiple zones, each with its own SOA record."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "In a public-key infrastructure, if Alice wants to send Bob a message that ONLY Bob can read, she should:",
+    opts: [
+      "Encrypt with Alice's private key",
+      "Encrypt with Bob's public key — only Bob's private key can decrypt",
+      "Encrypt with a shared symmetric key negotiated via Diffie-Hellman",
+      "Hash the message with SHA-256"
+    ],
+    ans: 1,
+    exp: "For confidentiality (only Bob can read): Alice encrypts with BOB'S PUBLIC KEY. Only Bob's private key can decrypt. Contrast with digital signatures: Alice signs with HER PRIVATE KEY (anyone can verify with Alice's public key). The two operations serve opposite goals: confidentiality vs. authenticity."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "The Diffie-Hellman key exchange allows two parties to establish a shared secret over an insecure channel without prior shared secrets. Its security relies on:",
+    opts: [
+      "RSA integer factorization",
+      "The computational difficulty of the Discrete Logarithm Problem (DLP): given g, p, and g^x mod p, finding x is computationally hard",
+      "AES key scheduling",
+      "SHA-256 collision resistance"
+    ],
+    ans: 1,
+    exp: "D-H: both parties agree on public (g, p). Alice sends g^a mod p; Bob sends g^b mod p. Shared secret = g^(ab) mod p. Computing a from g^a mod p is the Discrete Logarithm Problem — believed computationally intractable for large p. An eavesdropper sees g^a and g^b but cannot compute g^(ab)."
+  },
+  {
+    unit: "unit1",
+    tag: "OSI vs TCP/IP",
+    difficulty: "hard",
+    q: "The TCP/IP model has how many layers, and which OSI layers does the TCP/IP 'Internet Layer' correspond to?",
+    opts: [
+      "4 layers; corresponds to OSI Layers 3 (Network)",
+      "5 layers; corresponds to OSI Layers 3 and 4",
+      "4 layers; Application corresponds to OSI 5+6+7, Transport = OSI 4, Internet = OSI 3, Link = OSI 1+2",
+      "3 layers; Application = OSI 5–7, Network = OSI 3–4, Physical = OSI 1–2"
+    ],
+    ans: 2,
+    exp: "TCP/IP model has 4 layers: Application (maps to OSI Session 5 + Presentation 6 + Application 7), Transport (OSI 4), Internet (OSI 3 Network), and Link/Network Access (OSI 1 Physical + 2 Data Link). The Internet Layer handles IP addressing and routing."
+  },
+  {
+    unit: "unit2",
+    tag: "Token Ring",
+    difficulty: "hard",
+    q: "In a Token Ring (IEEE 802.5) network, how is channel access controlled?",
+    opts: [
+      "CSMA/CD with collision detection",
+      "A special 'token' frame circulates; only the station holding the token may transmit, then releases the token",
+      "Random access with TDMA slots",
+      "Master station polls each node in sequence"
+    ],
+    ans: 1,
+    exp: "Token Ring uses token passing — a special 3-byte token frame circulates around the ring. Only the station holding the free token may transmit. After transmission (or a timeout), the station releases the token, allowing the next station to transmit. No collisions possible; deterministic access time."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv4 Header",
+    difficulty: "hard",
+    q: "The IPv4 'ToS' (Type of Service) byte has been redefined by DiffServ as the DS (Differentiated Services) field. The 6-bit DSCP field is used for:",
+    opts: [
+      "IP fragmentation offset",
+      "Marking packets with QoS class (per-hop behavior); routers use DSCP to apply traffic management policies",
+      "Routing protocol selection",
+      "TTL extension"
+    ],
+    ans: 1,
+    exp: "DiffServ (RFC 2474) uses the 6-bit DSCP in the old ToS byte. Packets are marked (e.g., EF for Expedited Forwarding/voice, AF for Assured Forwarding) at the network edge. Core routers apply per-hop behaviors (PHB) based on DSCP — providing QoS for voice, video, critical data without per-flow state."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "extreme",
+    q: "DHCP uses which UDP port pair, and what is the sequence of messages for IP address assignment?",
+    opts: [
+      "Ports 67/68; DISCOVER → OFFER → REQUEST → ACK (DORA)",
+      "Ports 53/54; QUERY → RESPONSE",
+      "Ports 80/443; GET → 200 OK",
+      "Ports 21/20; connect → data"
+    ],
+    ans: 0,
+    exp: "DHCP DORA: (1) Client broadcasts DISCOVER (UDP src:68, dst:67, IP src:0.0.0.0, dst:255.255.255.255); (2) Server(s) reply with OFFER (proposed IP, lease time); (3) Client broadcasts REQUEST (accepting one offer); (4) Server sends ACK confirming assignment. All messages are UDP: client port 68, server port 67."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "Which protocol does a web browser use to request an object from a web server, and what does a GET request look like at the protocol level?",
+    opts: [
+      "FTP: 'RETR /index.html'",
+      "HTTP: 'GET /index.html HTTP/1.1\\r\\nHost: example.com\\r\\n\\r\\n'",
+      "SMTP: 'MAIL FROM: browser@client.com'",
+      "DNS: 'QUERY example.com A'"
+    ],
+    ans: 1,
+    exp: "HTTP GET: the client sends a request line (method, URI, HTTP version), required headers (Host: in HTTP/1.1), and a blank line. The server responds with a status line (HTTP/1.1 200 OK), headers, and the response body. HTTP is a text-based application-layer protocol over TCP port 80 (HTTPS on 443)."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "In OSPF, routers within the same Area exchange full LSAs. What is the purpose of Area 0 (Backbone Area)?",
+    opts: [
+      "Connects to the Internet",
+      "All inter-area routing must pass through the backbone area (Area 0); it prevents routing loops between areas",
+      "Contains only stub networks",
+      "Handles only external BGP routes"
+    ],
+    ans: 1,
+    exp: "OSPF requires that all areas connect to Area 0 (Backbone). All inter-area traffic is routed through the backbone, ensuring a loop-free hierarchical topology. Area Border Routers (ABRs) summarize routes between areas. This two-level hierarchy reduces flooding and LSDB size in large networks."
+  },
+  {
+    unit: "unit2",
+    tag: "Error Control",
+    difficulty: "extreme",
+    q: "In Go-Back-N with window size N=7 and 3-bit sequence numbers (0–7), if frames 0,1,2,3,4 are sent and frame 2 is lost, which frames does the sender retransmit?",
+    opts: [
+      "Only frame 2",
+      "Frames 2, 3, 4, 5, 6 (all frames from the lost frame onward)",
+      "Frames 2, 3, 4 only",
+      "The entire window 0–6"
+    ],
+    ans: 1,
+    exp: "In Go-Back-N, the receiver discards all frames after the lost one (even if they arrived correctly). Upon timeout or NAK for frame 2, the sender 'goes back' and retransmits frame 2, then 3, 4, 5, 6... (all frames from the lost one until the current send boundary). Selective Repeat would only retransmit frame 2."
+  },
+  {
+    unit: "unit4",
+    tag: "Transport Layer",
+    difficulty: "hard",
+    q: "Which transport layer protocol would be most appropriate for a DNS query and why?",
+    opts: [
+      "TCP; reliable delivery is critical",
+      "UDP; DNS queries are small (fit in one datagram), speed is important, and the application handles retries",
+      "SCTP; for multi-homing support",
+      "ICMP; DNS uses ICMP under the hood"
+    ],
+    ans: 1,
+    exp: "DNS primarily uses UDP port 53 for queries. DNS messages are typically small (<512 bytes for legacy, <4096 with EDNS0) — a perfect fit for UDP's low overhead. The DNS resolver handles retries on timeout. TCP is used only when responses exceed 512 bytes (zone transfers, DNSSEC) or for reliability-critical operations."
+  },
+  {
+    unit: "unit1",
+    tag: "Physical Layer",
+    difficulty: "extreme",
+    q: "Which of the following transmission media offers the highest bandwidth over long distances with no electromagnetic interference?",
+    opts: [
+      "Category 6A twisted-pair UTP",
+      "Coaxial cable (RG-6)",
+      "Single-mode optical fiber",
+      "5G mmWave wireless"
+    ],
+    ans: 2,
+    exp: "Single-mode optical fiber (SMF) carries light through a tiny core (~9μm), enabling wavelengths of 1310nm and 1550nm to travel 100+ km without repeaters at hundreds of Gbps (using DWDM). Light is immune to EMI. SMF dominates long-haul backbone, undersea cables, and data center interconnects."
+  },
+  {
+    unit: "unit3",
+    tag: "IPv6",
+    difficulty: "extreme",
+    q: "IPv6 uses NDP (Neighbor Discovery Protocol) instead of ARP. Which ICMP type does NDP use for address resolution?",
+    opts: [
+      "ICMPv6 Type 135 (Neighbor Solicitation) and Type 136 (Neighbor Advertisement)",
+      "ICMPv6 Type 8 (Echo Request) and Type 0 (Echo Reply)",
+      "ICMPv6 Type 133 (Router Solicitation)",
+      "ICMPv6 Type 130 (Multicast Listener Query)"
+    ],
+    ans: 0,
+    exp: "NDP uses ICMPv6: Type 133 Router Solicitation, Type 134 Router Advertisement, Type 135 Neighbor Solicitation (ARP-equivalent: 'Who has IP X?'), Type 136 Neighbor Advertisement (ARP-reply equivalent: 'I have IP X, my MAC is Y'), Type 137 Redirect. NDP uses multicast rather than broadcast."
+  },
+  {
+    unit: "unit2",
+    tag: "Frame Formats",
+    difficulty: "hard",
+    q: "In Ethernet II framing, the 'EtherType' field distinguishes the carried protocol. What EtherType values indicate IPv4 and ARP respectively?",
+    opts: [
+      "IPv4 = 0x0800; ARP = 0x0806",
+      "IPv4 = 0x0806; ARP = 0x0800",
+      "IPv4 = 0x86DD; ARP = 0x0800",
+      "IPv4 = 0x0800; ARP = 0x8100"
+    ],
+    ans: 0,
+    exp: "Standard EtherType values: 0x0800 = IPv4; 0x0806 = ARP; 0x86DD = IPv6; 0x8100 = 802.1Q VLAN tagged frame; 0x8847 = MPLS unicast; 0x888E = 802.1X (EAP over LAN). These are how a NIC driver knows which upper-layer protocol to pass the frame payload to."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "extreme",
+    q: "In POP3, the RETR command retrieves an email. Which command marks a message for deletion to happen upon QUIT?",
+    opts: ["DELE", "ERASE", "RM", "DELETE"],
+    ans: 0,
+    exp: "POP3 commands: STAT (mailbox status), LIST (message sizes), RETR n (retrieve message n), DELE n (mark message n for deletion — executed on QUIT), NOOP (keep connection alive), RSET (reset/unmark deletions), QUIT (commit deletions, close). Deletions are committed only at QUIT."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP Header",
+    difficulty: "extreme",
+    q: "The TCP header contains a 'Window Size' field (16 bits). What is the maximum window size with basic TCP, and how can it be extended?",
+    opts: [
+      "65,535 bytes; extended by TCP Window Scale option (RFC 1323) allowing up to 1GB windows",
+      "4GB maximum without any extension",
+      "65,535 bytes; cannot be extended",
+      "1MB maximum; extended by SACK"
+    ],
+    ans: 0,
+    exp: "The 16-bit Window field allows a maximum of 2^16 − 1 = 65,535 bytes. The TCP Window Scale option (RFC 1323) adds a left-shift factor (0–14) agreed in the three-way handshake, allowing effective windows up to 65535 × 2^14 = ~1 GB — essential for high-BDP links like satellite or transcontinental fiber."
+  },
+  {
+    unit: "unit3",
+    tag: "Subnetting",
+    difficulty: "extreme",
+    q: "An ISP has the block 200.45.0.0/16 and divides it into 256 equal subnets. What is the prefix length of each subnet?",
+    opts: ["/18", "/20", "/22", "/24"],
+    ans: 3,
+    exp: "Starting with /16, dividing into 256 = 2^8 equal subnets requires borrowing 8 more bits: /16 + 8 = /24. Each /24 subnet contains 256 addresses (254 usable). 256 subnets × 256 addresses = 65,536 total addresses = /16. Correct."
+  },
+  {
+    unit: "unit1",
+    tag: "Network Devices",
+    difficulty: "hard",
+    q: "A Layer 3 switch differs from a traditional Layer 2 switch in that it:",
+    opts: [
+      "Operates only at Layer 2 but faster",
+      "Can perform routing between VLANs using IP addresses, combining switch hardware speed with router functionality",
+      "Uses optical fiber only",
+      "Acts as a gateway to the Internet"
+    ],
+    ans: 1,
+    exp: "A Layer 3 switch performs inter-VLAN routing (routing between VLANs) in hardware using ASICs — giving wire-speed routing performance unlike software-based routers. It forwards within a VLAN using MAC addresses (L2) and between VLANs using IP addresses (L3) without the bottleneck of a separate router."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "X.25 was a legacy WAN protocol. Which two newer technologies evolved from X.25 concepts?",
+    opts: [
+      "Ethernet and WiFi",
+      "Frame Relay and ATM (Asynchronous Transfer Mode)",
+      "MPLS and SD-WAN",
+      "DSL and cable modems"
+    ],
+    ans: 1,
+    exp: "X.25 (virtual circuit, error correction, flow control) directly inspired Frame Relay (simplified X.25 without per-link error correction, faster) and ATM (fixed 53-byte cells, virtual circuits, suited for voice+data integration). Both were dominant WAN technologies before IP/MPLS became universal."
+  },
+  {
+    unit: "unit3",
+    tag: "Internetworking",
+    difficulty: "extreme",
+    q: "A router receives a packet destined for 10.5.0.0. Its routing table has entries: 10.0.0.0/8 via R1, 10.5.0.0/16 via R2, 10.5.2.0/24 via R3. Which route is selected and why?",
+    opts: [
+      "10.0.0.0/8 via R1 — matches first",
+      "10.5.0.0/16 via R2 — longest match",
+      "10.5.2.0/24 via R3 — longest match",
+      "All three via ECMP load balancing"
+    ],
+    ans: 1,
+    exp: "Longest Prefix Match (LPM): routers select the most specific (longest prefix) route that matches the destination. 10.5.0.0 matches: /8 (8 bits), /16 (16 bits — exact match), /24 (no match since 10.5.0.0 ≠ 10.5.2.x). Winner: 10.5.0.0/16 via R2. /24 doesn't match 10.5.0.0."
+  },
+  {
+    unit: "unit2",
+    tag: "Data Link Layer",
+    difficulty: "hard",
+    q: "Bit stuffing is used in HDLC framing to handle transparency. If the flag byte is 01111110, how does bit stuffing work?",
+    opts: [
+      "Replace every '1' with '10'",
+      "After 5 consecutive 1s in data, the sender inserts a '0'; the receiver removes any '0' following five 1s",
+      "Encode all data in 4B/5B before transmission",
+      "XOR data with the flag pattern"
+    ],
+    ans: 1,
+    exp: "HDLC flag = 01111110 (six 1s). To prevent data from containing the flag pattern: sender inserts a '0' after every 5 consecutive '1' bits in the data. Receiver: after seeing five 1s, if next bit is '0', it removes it (stuffed bit); if '1', it's a flag (frame delimiter) or abort (seven 1s = abort). This provides frame transparency."
+  },
+  {
+    unit: "unit1",
+    tag: "Topology",
+    difficulty: "hard",
+    q: "In a mesh topology with N nodes, the number of links required for full mesh (every node connected to every other) is:",
+    opts: ["N²", "N(N−1)", "N(N−1)/2", "2^N"],
+    ans: 2,
+    exp: "Full mesh: each node connects to every other node. From node 1, N−1 links; node 2, N−2 new links... Total = (N−1)+(N−2)+...+1 = N(N−1)/2. For 5 nodes: 10 links. High fault tolerance but expensive to implement — used in WAN cores and critical infrastructure."
+  },
+  {
+    unit: "unit4",
+    tag: "Transport Layer",
+    difficulty: "extreme",
+    q: "SCTP (Stream Control Transmission Protocol) offers which features NOT found in either TCP or UDP?",
+    opts: [
+      "Higher bandwidth than TCP",
+      "Multi-homing (connection survives IP address change) and multi-streaming (multiple independent byte streams in one association, eliminating head-of-line blocking)",
+      "Built-in encryption",
+      "Smaller header size than UDP"
+    ],
+    ans: 1,
+    exp: "SCTP (RFC 4960) uniquely provides: (1) Multi-homing — an association can use multiple IP addresses on each side, surviving network path failures; (2) Multi-streaming — multiple independent ordered streams within one connection, so a lost packet in stream 1 doesn't block stream 2 (unlike TCP). Also has 4-way handshake (INIT, INIT-ACK, COOKIE-ECHO, COOKIE-ACK) for anti-spoofing."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "extreme",
+    q: "The Time-To-Live (TTL) field in IPv4 serves what primary purpose, and what happens at each router?",
+    opts: [
+      "Identifies packet version; unchanged at routers",
+      "Limits packet lifetime; decremented by 1 at each router — packet discarded with ICMP Time Exceeded if TTL reaches 0",
+      "Counts hops for billing; incremented at each router",
+      "Marks QoS priority; inspected but not modified"
+    ],
+    ans: 1,
+    exp: "TTL prevents packets from circulating indefinitely in routing loops. Each router decrements TTL by 1 (and recomputes the IP header checksum). At TTL=0, the router drops the packet and sends ICMP Type 11 Code 0 (Time Exceeded) to the source. Traceroute exploits this by sending packets with TTL=1, 2, 3... to map each hop."
+  },
+  {
+    unit: "unit2",
+    tag: "MAC Sublayer",
+    difficulty: "extreme",
+    q: "In the IEEE 802.3 CSMA/CD standard, after a collision is detected, all stations transmit a jam signal. What is the purpose of the jam signal?",
+    opts: [
+      "To request retransmission from the other sender",
+      "To ensure all stations on the segment detect the collision (collision reinforcement), since signal attenuation may mean not all stations see the collision",
+      "To synchronize clocks across all stations",
+      "To inform the MAC layer to switch to token ring mode"
+    ],
+    ans: 1,
+    exp: "When collision detected, the station transmits a 32-bit jam signal. This ensures the collision signal is strong enough to reach all stations on the segment — even those far away where the collision might have attenuated below detection threshold. After jamming, all stations know to back off and retry."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "ARPANET, the precursor to the Internet, used which protocol for host-to-host communication before TCP/IP?",
+    opts: ["TCP/IP", "NCP (Network Control Protocol)", "X.25", "UDP/IP"],
+    ans: 1,
+    exp: "ARPANET originally used NCP (Network Control Protocol), designed by Steve Crocker in 1970. NCP provided simplex connections (separate connections for each direction). TCP/IP, designed by Cerf and Kahn, replaced NCP on ARPANET on January 1, 1983 ('Flag Day') — considered the birth of the modern Internet."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "In Distance Vector Routing with split horizon and poison reverse, how does poison reverse improve on basic split horizon?",
+    opts: [
+      "Poison reverse is identical to split horizon",
+      "Poison reverse advertises routes learned from a neighbor BACK to that neighbor with infinite metric (poison), enabling faster detection of failures rather than waiting for route expiry",
+      "Poison reverse uses MD5 authentication",
+      "Poison reverse doubles the routing table size for redundancy"
+    ],
+    ans: 1,
+    exp: "Basic split horizon: don't advertise a route back to where you learned it. Poison reverse: actively advertise those routes back with metric = infinity (16 in RIP). This immediately tells the neighbor 'I cannot reach X through you' rather than relying on route timeout, significantly speeding up convergence after failures."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "A digital signature scheme provides which THREE security properties simultaneously?",
+    opts: [
+      "Confidentiality, Availability, Integrity",
+      "Authentication (proves sender identity), Non-repudiation (sender cannot deny signing), Integrity (detects modification)",
+      "Encryption, Compression, Error Correction",
+      "Confidentiality, Authentication, Compression"
+    ],
+    ans: 1,
+    exp: "Digital signatures (e.g., RSA signature = encrypt hash with private key): (1) Authentication — verifier uses sender's public key, confirming only the private key owner could sign; (2) Non-repudiation — sender cannot later deny sending (only they had the private key); (3) Integrity — signature covers a hash of the data, any modification invalidates the signature."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "extreme",
+    q: "HTTP/2 introduced multiplexing over a single TCP connection. What specific problem from HTTP/1.1 does this solve?",
+    opts: [
+      "HTTP/1.1 had no compression",
+      "HTTP/1.1 pipelining suffered from Head-of-Line (HOL) blocking — one slow response delayed all subsequent ones; HTTP/2 multiplexes independent streams so a stalled stream doesn't block others",
+      "HTTP/1.1 required separate TCP connection per domain",
+      "HTTP/1.1 had no TLS support"
+    ],
+    ans: 1,
+    exp: "HTTP/2 uses a binary framing layer with stream multiplexing: multiple request/response pairs interleave as frames on a single TCP connection. Each stream is independent — a slow large response doesn't block fast small ones. HTTP/2 also introduces HPACK header compression and server push. Note: HTTP/3 solves TCP-level HOL blocking by using QUIC/UDP."
+  },
+  {
+    unit: "unit3",
+    tag: "IP Addressing",
+    difficulty: "hard",
+    q: "What is the range of private IP addresses defined in RFC 1918 for Class A?",
+    opts: ["172.16.0.0 – 172.31.255.255", "10.0.0.0 – 10.255.255.255", "192.168.0.0 – 192.168.255.255", "169.254.0.0 – 169.254.255.255"],
+    ans: 1,
+    exp: "RFC 1918 private ranges: Class A: 10.0.0.0/8 (10.0.0.0–10.255.255.255); Class B: 172.16.0.0/12 (172.16–172.31.x.x); Class C: 192.168.0.0/16 (192.168.0–192.168.255.x). 169.254.x.x is APIPA (Automatic Private IP Addressing) — link-local, RFC 3927, used when DHCP fails."
+  },
+  {
+    unit: "unit2",
+    tag: "Data Link Layer",
+    difficulty: "extreme",
+    q: "The Stop-and-Wait protocol achieves very low efficiency on high-latency links. If bandwidth = 1 Gbps, frame size = 1500 bytes, and RTT = 200ms, what is the approximate link efficiency?",
+    opts: ["~0.006%", "~50%", "~99%", "~12%"],
+    ans: 0,
+    exp: "Efficiency = T_t / (T_t + RTT) where T_t = (1500×8) / 10^9 = 0.000012 s = 12μs. RTT = 200ms = 200,000μs. Efficiency = 12/(12+200000) ≈ 0.006%. This illustrates why Stop-and-Wait is unsuitable for satellite/WAN links — sliding window protocols (with large windows) are essential."
+  },
+  {
+    unit: "unit1",
+    tag: "OSI Model",
+    difficulty: "hard",
+    q: "PDUs (Protocol Data Units) at each OSI layer have specific names. Match: Layer 4 → Layer 3 → Layer 2 → Layer 1:",
+    opts: [
+      "Segment → Packet → Frame → Bit",
+      "Packet → Segment → Bit → Frame",
+      "Frame → Packet → Segment → Bit",
+      "Message → Datagram → Cell → Signal"
+    ],
+    ans: 0,
+    exp: "OSI PDU names: Layer 7-5 Application = Message/Data; Layer 4 Transport = Segment (TCP) or Datagram (UDP); Layer 3 Network = Packet; Layer 2 Data Link = Frame; Layer 1 Physical = Bit. Each layer adds/removes its header/trailer encapsulation — called encapsulation (sender) and decapsulation (receiver)."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "extreme",
+    q: "What is the difference between unicast, broadcast, multicast, and anycast in IP networking?",
+    opts: [
+      "All four are the same in IPv6",
+      "Unicast: 1→1; Broadcast: 1→all (subnet); Multicast: 1→group (opt-in); Anycast: 1→nearest of a group (routing-based)",
+      "Unicast: 1→all; Broadcast: 1→1; Multicast: 1→1; Anycast: 1→group",
+      "IPv4 supports all four; IPv6 supports none"
+    ],
+    ans: 1,
+    exp: "Unicast: one sender, one receiver. Broadcast: one sender, all receivers on subnet (255.255.255.255 or subnet broadcast). Multicast: one sender, subscribed group members (Class D, 224-239.x.x.x; IGMP). Anycast: one sender, routed to nearest member of a set (same IP assigned to multiple servers in different locations; used in DNS root servers, CDNs). IPv6 has no broadcast — uses multicast instead."
+  },
+  {
+    unit: "unit2",
+    tag: "Error Control",
+    difficulty: "hard",
+    q: "Checksum in UDP is computed over the UDP header, data, AND a pseudo-header from IP. What does the pseudo-header include?",
+    opts: [
+      "Only the UDP length field",
+      "Source IP, Destination IP, Zero byte, Protocol number (17), and UDP length — to detect misdelivered packets",
+      "IP header checksum only",
+      "MAC addresses of source and destination"
+    ],
+    ans: 1,
+    exp: "The UDP (and TCP) pseudo-header includes: source IP (4B), destination IP (4B), zero byte (1B), protocol (1B: 17=UDP, 6=TCP), and segment length (2B). Including IP addresses in the checksum allows detection of packets delivered to the wrong IP — a mismatch that IP header routing alone might miss if the IP header checksum was also incorrect."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "extreme",
+    q: "Which DNS record type is used for reverse DNS lookup (IP address to domain name), and in which special domain are these records stored?",
+    opts: [
+      "A records in .reverse.arpa",
+      "PTR records in the in-addr.arpa domain (for IPv4) or ip6.arpa (for IPv6)",
+      "CNAME records in reverse.dns",
+      "NS records in ptr.arpa"
+    ],
+    ans: 1,
+    exp: "Reverse DNS uses PTR (Pointer) records stored in the in-addr.arpa zone. The IP is reversed: 192.168.1.100 is queried as 100.1.168.192.in-addr.arpa. This reversal maintains the DNS hierarchical structure (most significant part on right). IPv6 uses ip6.arpa with each nibble reversed."
+  },
+  {
+    unit: "unit3",
+    tag: "ICMP",
+    difficulty: "hard",
+    q: "An ICMP 'Destination Unreachable' message with code 3 means:",
+    opts: [
+      "Network Unreachable",
+      "Host Unreachable",
+      "Port Unreachable",
+      "Protocol Unreachable"
+    ],
+    ans: 2,
+    exp: "ICMP Type 3 (Destination Unreachable) codes: 0=Network Unreachable, 1=Host Unreachable, 2=Protocol Unreachable, 3=Port Unreachable, 4=Fragmentation Needed (DF bit set but must fragment), 5=Source Route Failed. Port Unreachable (code 3) is sent by UDP when there's no listener on the target port."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "extreme",
+    q: "TCP selective acknowledgment (SACK, RFC 2018) improves upon cumulative ACKs by allowing the receiver to:",
+    opts: [
+      "Acknowledge packets out of order so the sender knows exactly which segments were received, avoiding unnecessary retransmissions of already-received segments",
+      "Increase window size above 65535 bytes",
+      "Reduce the number of ACKs sent",
+      "Piggyback data on ACK packets"
+    ],
+    ans: 0,
+    exp: "With basic TCP, a cumulative ACK of seq 1000 only says 'received up to byte 999.' If bytes 1000-1999 are lost but 2000-5999 arrived, the sender must retransmit everything from 1000 with Go-Back-N behavior. SACK blocks in the ACK tell the sender exactly which ranges were received, enabling it to retransmit only the missing bytes."
+  },
+  {
+    unit: "unit1",
+    tag: "Switching",
+    difficulty: "extreme",
+    q: "Store-and-Forward switching in a router vs. Cut-Through switching in a LAN switch — what is the key trade-off?",
+    opts: [
+      "Store-and-Forward is faster; Cut-Through is more reliable",
+      "Store-and-Forward buffers entire frame before forwarding (higher latency, can check CRC and discard corrupt frames); Cut-Through forwards as soon as destination MAC is read (lower latency, but forwards corrupt frames)",
+      "Both have identical latency",
+      "Cut-Through requires more memory"
+    ],
+    ans: 1,
+    exp: "Store-and-Forward: waits for the complete frame, verifies CRC, then forwards. Latency ≈ frame transmission time. Advantage: corrupt frames never forwarded. Cut-Through: reads only the 6-byte destination MAC (first 48 bits) then begins forwarding. Latency ≈ only those 48 bits. Disadvantage: corrupt frames propagate. Fragment-free switching waits for 64 bytes (catches most runt frames)."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "hard",
+    q: "The IP fragmentation process creates multiple smaller datagrams. Where is reassembly performed?",
+    opts: [
+      "At every router along the path",
+      "Only at the final destination host",
+      "At the first router that can handle the full MTU",
+      "At the source before transmission"
+    ],
+    ans: 1,
+    exp: "IPv4 reassembly occurs ONLY at the destination host — never at intermediate routers. Fragments from the same datagram may take different paths; reassembling at routers would be impossible. The destination identifies fragments by (source IP, destination IP, protocol, Identification) and orders them by Fragment Offset. IPv6 eliminates router fragmentation entirely."
+  },
+  {
+    unit: "unit4",
+    tag: "Flow Control",
+    difficulty: "extreme",
+    q: "TCP flow control uses the receiver's advertised window. When the receiver's buffer fills completely and it advertises a window of 0, what mechanism prevents the sender from being permanently blocked?",
+    opts: [
+      "Sender sends FIN and closes connection",
+      "TCP persist timer — sender periodically sends 1-byte 'window probe' segments to check if window has reopened",
+      "Sender switches to UDP",
+      "ICMP Source Quench message from receiver"
+    ],
+    ans: 1,
+    exp: "When receiver advertises zero window, sender stops transmitting. But the window-update ACK may be lost. TCP's persist timer fires periodically, causing the sender to send a 1-byte 'window probe.' The receiver responds with a current-window ACK, preventing permanent deadlock. Without persist timer, a lost zero-window update would permanently stall the connection."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "What is the primary difference between HTTP GET and POST methods?",
+    opts: [
+      "GET is encrypted; POST is plaintext",
+      "GET sends parameters in the URL (query string), is idempotent and cacheable; POST sends data in the body, not cached, suitable for data that changes server state",
+      "POST can only send text; GET can send binary",
+      "GET uses UDP; POST uses TCP"
+    ],
+    ans: 1,
+    exp: "HTTP GET: parameters in URL (?key=value), idempotent (repeating returns same result), bookmarkable, limited data size, cached by browsers/proxies. HTTP POST: data in request body, not idempotent (may create/modify resources), not cached, no size limit — used for form submission, file upload, creating resources. REST APIs use GET for read, POST for create."
+  },
+  {
+    unit: "unit2",
+    tag: "Data Link Layer",
+    difficulty: "extreme",
+    q: "In HDLC (High-Level Data Link Control), which frame type carries user data?",
+    opts: ["Supervisory (S) frames", "Unnumbered (U) frames", "Information (I) frames", "Control (C) frames"],
+    ans: 2,
+    exp: "HDLC frame types: I (Information) frames carry user data + sequence numbers for piggybacked ACK; S (Supervisory) frames carry control info (RR=Receive Ready/ACK, RNR=Receive Not Ready/flow control, REJ=Reject/NAK, SREJ=Selective Reject) — no data; U (Unnumbered) frames for connection management (SABM, UA, DISC, DM). I-frames are the data-bearing frames."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "A routing table uses administrative distance (AD) to choose between routes from different routing protocols. Which ordering is correct (lower AD = more trusted)?",
+    opts: [
+      "Connected=0, Static=1, OSPF=110, RIP=120, External BGP=20",
+      "BGP=20, RIP=120, OSPF=110, Static=1, Connected=0",
+      "Connected=0, Static=1, EBGP=20, OSPF=110, RIP=120 (Cisco AD values)",
+      "All routing protocols have the same AD by default"
+    ],
+    ans: 2,
+    exp: "Cisco administrative distance values (lower = preferred): Directly Connected=0, Static=1, EIGRP Summary=5, EBGP=20, Internal EIGRP=90, IGRP=100, OSPF=110, IS-IS=115, RIP=120, IBGP=200, Unknown=255. When two protocols know a route to the same destination, the lower AD route is installed in the routing table."
+  },
+
+  // ── Final Batch: Mixed Extreme ────────────────────────────────────
+  {
+    unit: "unit2",
+    tag: "Error Detection",
+    difficulty: "extreme",
+    q: "A CRC generator polynomial G(x) = x^4 + x + 1 (binary: 10011) is used with 8-bit data M = 10110011. How many check bits (CRC bits) are appended?",
+    opts: ["8 bits", "4 bits", "5 bits", "3 bits"],
+    ans: 1,
+    exp: "The number of CRC check bits = degree of generator polynomial = 4 (x^4). So 4 zeros are appended to data before division: data becomes 101100110000 (12 bits). The 4-bit remainder is the CRC. The generator x^4+x+1 has degree 4 → 4 CRC bits."
+  },
+  {
+    unit: "unit4",
+    tag: "TCP",
+    difficulty: "hard",
+    q: "What does the SYN flood attack exploit, and what countermeasure does SYN Cookie implement?",
+    opts: [
+      "Exploits TCP's three-way handshake by filling the half-open connection queue with SYN packets from spoofed IPs; SYN Cookies encode connection state into the ISN, removing the need for a half-open queue entry until the ACK arrives",
+      "Exploits UDP's connectionless nature",
+      "Exploits DNS caching",
+      "Exploits ARP table overflow"
+    ],
+    ans: 0,
+    exp: "SYN Flood: attacker sends thousands of SYN packets with spoofed source IPs. Server allocates memory for half-open connections, filling the backlog queue — legitimate connections fail. SYN Cookies (RFC 4987): server encodes all connection state into the ISN using a cryptographic hash. No memory allocated until valid ACK arrives with the correct ISN, completely mitigating queue exhaustion."
+  },
+  {
+    unit: "unit1",
+    tag: "Multiplexing",
+    difficulty: "hard",
+    q: "FDM (Frequency Division Multiplexing) and TDM (Time Division Multiplexing) are used in different contexts. Which is more suitable for analog signals and which for digital?",
+    opts: [
+      "FDM for digital; TDM for analog",
+      "FDM is suited for analog (each signal uses a distinct frequency band); TDM is suited for digital (each signal gets allocated time slots)",
+      "Both are equivalent for all signal types",
+      "CDM (Code Division) replaced both"
+    ],
+    ans: 1,
+    exp: "FDM: divides bandwidth into sub-bands (guard bands between them); each source occupies a dedicated frequency slice. Used in radio broadcasting, cable TV, ADSL (analog-domain). TDM: divides time into slots; each source gets a time slot in round-robin. Used in T1/E1 lines, ISDN, SONET (digital-domain). OFDM (Orthogonal FDM) bridges both — used in 4G/5G, WiFi 802.11ac/ax."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "What is the purpose of the TTL field in a DNS Resource Record (different from IP TTL)?",
+    opts: [
+      "Limits the number of DNS servers the query passes through",
+      "Specifies how long (in seconds) a resolver may cache the record before re-querying the authoritative server",
+      "Indicates the priority of the record",
+      "Defines the record's geographic region"
+    ],
+    ans: 1,
+    exp: "DNS record TTL (Time To Live) tells resolvers how many seconds to cache the record. A low TTL (e.g., 60s) allows fast DNS changes but increases query load on authoritative servers. A high TTL (e.g., 86400s = 1 day) reduces query load but means DNS changes take longer to propagate globally. TTL is set by domain administrators based on change frequency needs."
+  },
+  {
+    unit: "unit4",
+    tag: "Cryptography",
+    difficulty: "extreme",
+    q: "In SSL/TLS handshake, what is the purpose of the 'Certificate Verify' message sent by the client in mutual authentication?",
+    opts: [
+      "Proves the client knows the pre-master secret",
+      "Proves the client possesses the private key corresponding to its presented certificate, by signing a digest of all handshake messages so far with the private key",
+      "Verifies the server's certificate against the CA",
+      "Establishes the cipher suite to be used"
+    ],
+    ans: 1,
+    exp: "In TLS mutual authentication, after the client sends its certificate, it also sends CertificateVerify: a digital signature over all previous handshake messages using the client's private key. The server verifies this with the client's public key (from the certificate). This proves the client genuinely holds the private key — preventing certificate replay attacks."
+  },
+  {
+    unit: "unit3",
+    tag: "Network Layer",
+    difficulty: "extreme",
+    q: "MPLS (Multiprotocol Label Switching) inserts a label between the Layer 2 and Layer 3 headers. What is the primary advantage of MPLS over traditional IP routing?",
+    opts: [
+      "MPLS eliminates the need for routers",
+      "Labels enable fixed-path forwarding (LSPs) with O(1) label lookup rather than longest-prefix-match IP routing, enabling Traffic Engineering, VPNs, and QoS without per-packet IP lookups",
+      "MPLS provides built-in encryption",
+      "MPLS reduces packet size by removing IP headers"
+    ],
+    ans: 1,
+    exp: "MPLS assigns short labels at the ingress. Label Switching Routers (LSRs) forward based on label swapping — simple table lookup, no IP address comparison. Benefits: Traffic Engineering (TE) to control path selection beyond shortest path; L3VPNs using label stacks; fast reroute (FRR) for sub-50ms failure recovery; QoS with EXP bits in label."
+  },
+  {
+    unit: "unit2",
+    tag: "MAC Sublayer",
+    difficulty: "hard",
+    q: "In IEEE 802.11 (WiFi), the hidden station problem occurs when:",
+    opts: [
+      "Two stations are too close and interfere",
+      "Station A and C are both in range of B but NOT of each other — A and C cannot detect each other's transmissions, causing collisions at B",
+      "The access point is overloaded",
+      "Stations are using different channels"
+    ],
+    ans: 1,
+    exp: "Hidden terminal problem: A and C are out of each other's range but both in range of B (AP). A senses no carrier and transmits; C also senses no carrier and transmits — collision at B, neither A nor C detects it. Solution: RTS/CTS (Request-to-Send/Clear-to-Send) — B's CTS is heard by both A and C, making them defer."
+  },
+  {
+    unit: "unit3",
+    tag: "Routing",
+    difficulty: "extreme",
+    q: "Which property of link-state routing ensures it converges FASTER than distance-vector routing after a topology change?",
+    opts: [
+      "Uses a smaller routing table",
+      "Each router has complete topology knowledge and independently re-runs Dijkstra's SPF when a topology change LSA is received, converging in O(seconds) vs. DV's potential minutes of count-to-infinity",
+      "Uses reliable flooding with sequence numbers to rapidly disseminate changes to all routers simultaneously",
+      "Both B and C — flooding speed AND local SPF computation contribute to faster convergence"
+    ],
+    ans: 3,
+    exp: "Link-state convergence advantage comes from two factors: (1) LSP flooding uses sequence numbers and reliable dissemination to propagate topology changes to all routers simultaneously in seconds; (2) Each router independently runs Dijkstra's SPF on the updated LSDB to compute new paths immediately. DV routers only know next-hop info and may count-to-infinity over many update cycles."
+  },
+  {
+    unit: "unit5",
+    tag: "Application Layer",
+    difficulty: "hard",
+    q: "What is the function of a 'default gateway' in a host's network configuration?",
+    opts: [
+      "The primary DNS server for the host",
+      "The router's IP address on the local subnet to which the host forwards all packets destined for non-local subnets",
+      "The DHCP server address",
+      "The broadcast address of the subnet"
+    ],
+    ans: 1,
+    exp: "When a host needs to send a packet to an IP outside its subnet (different network prefix), it doesn't know the destination directly. It forwards the packet to the default gateway (typically the local router's interface IP). The router then handles routing to the actual destination. Without a default gateway, hosts can only communicate within their own subnet."
+  },
+  {
+    unit: "unit1",
+    tag: "OSI Model",
+    difficulty: "extreme",
+    q: "Session Layer (Layer 5) provides which of the following that Transport Layer does NOT?",
+    opts: [
+      "Reliable byte stream",
+      "Dialog control (half-duplex/full-duplex) and synchronization points (checkpoints) that allow resumption of an interrupted transfer from the last checkpoint",
+      "Encryption of data",
+      "Routing between hosts"
+    ],
+    ans: 1,
+    exp: "The Session Layer manages sessions between applications: (1) Dialog control — token management for orderly half-duplex/full-duplex exchanges; (2) Synchronization — inserting checkpoints (sync points) into data streams so if a session fails, only data after the last checkpoint needs to be retransmitted. Transport Layer only provides a reliable byte stream without session management or checkpointing."
+  },
+  {
+    unit: "unit1",
+    tag: "Physical Layer",
+    difficulty: "hard",
+    q: "What is the key advantage of fiber optic cable over copper-based transmission in long-distance networking?",
+    opts: [
+      "Lower cost per meter",
+      "Easier to install and repair",
+      "Dramatically lower attenuation (signal loss), immune to EMI, much higher bandwidth, and no electrical ground loops — enabling multi-km spans without repeaters",
+      "Supports Power over Ethernet (PoE)"
+    ],
+    ans: 2,
+    exp: "Fiber advantages: (1) Attenuation ~0.2 dB/km vs. ~22 dB/km for Cat6 copper; (2) EMI immunity (light, not electrical); (3) Bandwidth: single fiber can carry 100s of Tbps via DWDM; (4) No ground loops or cross-talk; (5) Long spans (80-100 km without regeneration). Disadvantages: fragile, expensive to splice, requires optical transceivers."
+  }
+];
+
+// ─── Pure ALOHA correction — fix data
+questions[10].exp = "Pure ALOHA maximum throughput S_max = 1/(2e) ≈ 18.4% at offered load G=0.5. Slotted ALOHA achieves 1/e ≈ 36.8%. The question asks for Pure ALOHA which is 18.4%.";
+questions[10].ans = 1; // 18.4%
+questions[10].opts = ["36.8% (1/e × 100%)", "18.4% (1/2e × 100%)", "50%", "74%"];
+
+// State management
+let answered = {};
+
+function renderQuestions(filter = 'all') {
+  const container = document.getElementById('mcqContainer');
+  container.innerHTML = '';
+  const filtered = filter === 'all' ? questions : questions.filter(q => q.unit === filter);
+  
+  filtered.forEach((q, displayIdx) => {
+    const realIdx = questions.indexOf(q);
+    const card = document.createElement('div');
+    card.className = 'mcq-card' + (answered[realIdx] !== undefined ? (answered[realIdx] === q.ans ? ' answered-correct' : ' answered-wrong') : '');
+    card.id = `card-${realIdx}`;
+
+    const optionsHTML = q.opts.map((opt, i) => {
+      let cls = 'option';
+      const isAnswered = answered[realIdx] !== undefined;
+      if (isAnswered) {
+        cls += ' disabled';
+        if (i === q.ans) cls += ' correct';
+        else if (i === answered[realIdx] && i !== q.ans) cls += ' wrong';
+      }
+      const icon = isAnswered ? (i === q.ans ? '✓' : (i === answered[realIdx] ? '✗' : '')) : '';
+      return `<div class="${cls}" onclick="selectOption(${realIdx}, ${i})">
+        <span class="opt-label">${String.fromCharCode(65+i)}.</span>
+        <span class="opt-text">${opt}</span>
+        <span class="opt-icon">${icon}</span>
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="mcq-header">
+        <span class="q-num">Q${realIdx + 1}</span>
+        <div class="q-meta">
+          <span class="q-tag">${q.tag}</span>
+          <span class="q-text">${q.q}</span>
+        </div>
+        <span class="q-difficulty diff-${q.difficulty}">${q.difficulty.toUpperCase()}</span>
+      </div>
+      <div class="options">${optionsHTML}</div>
+      <div class="explanation${answered[realIdx] !== undefined ? ' show' : ''}" id="exp-${realIdx}">
+        <div class="exp-label">💡 Explanation</div>
+        <div class="exp-text">${q.exp}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+  updateProgress();
+}
+
+function selectOption(qIdx, optIdx) {
+  if (answered[qIdx] !== undefined) return;
+  answered[qIdx] = optIdx;
+  
+  const q = questions[qIdx];
+  const card = document.getElementById(`card-${qIdx}`);
+  card.className = 'mcq-card ' + (optIdx === q.ans ? 'answered-correct' : 'answered-wrong');
+  
+  const options = card.querySelectorAll('.option');
+  options.forEach((opt, i) => {
+    opt.classList.add('disabled');
+    if (i === q.ans) { opt.classList.add('correct'); opt.querySelector('.opt-icon').textContent = '✓'; }
+    else if (i === optIdx && i !== q.ans) { opt.classList.add('wrong'); opt.querySelector('.opt-icon').textContent = '✗'; }
+  });
+  
+  document.getElementById(`exp-${qIdx}`).classList.add('show');
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = questions.length;
+  const ans = Object.keys(answered).length;
+  const correct = Object.entries(answered).filter(([i, v]) => v === questions[i].ans).length;
+  
+  document.getElementById('progressFill').style.width = (ans/total*100) + '%';
+  document.getElementById('progressLabel').textContent = `${ans} / ${total} answered`;
+  document.getElementById('scoreVal').textContent = ans;
+  document.getElementById('totalAnswered').textContent = ans;
+  document.getElementById('correctCount').textContent = correct;
+}
+
+function filterUnit(unit, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuestions(unit);
+}
+
+function showAll() {
+  questions.forEach((q, i) => { if (answered[i] === undefined) answered[i] = q.ans; });
+  renderQuestions('all');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab')[0].classList.add('active');
+}
+
+function resetAll() {
+  answered = {};
+  renderQuestions('all');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab')[0].classList.add('active');
+}
+
+function showSummary() {
+  const correct = Object.entries(answered).filter(([i,v]) => v === questions[i].ans).length;
+  const total = Object.keys(answered).length || questions.length;
+  document.getElementById('finalScore').textContent = correct;
+  document.getElementById('finalTotal').textContent = questions.length;
+  const pct = Math.round(correct/questions.length*100);
+  let msg = pct >= 85 ? "🏆 Excellent! NPTEL ready!" : pct >= 70 ? "👍 Good performance. Review weak areas." : pct >= 50 ? "📚 Keep studying — focus on Network and Transport layers." : "💪 More practice needed. Go unit by unit!";
+  let title = pct >= 85 ? "Outstanding!" : pct >= 70 ? "Good Job!" : pct >= 50 ? "Keep Going!" : "Keep Practicing!";
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+renderQuestions();
+</script>
+</body>
+</html>
